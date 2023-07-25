@@ -1,41 +1,29 @@
 #include "sort.h"
 
 /**
- * swap_ints - Interchanges two integers.
- * @a: Integer one.
- * @b: Integer two.
+ * selection_sort - A function that sorts an array using selection sort
+ * @array: The array to sort
+ * @size: Size of the array
+ * Return: Nothing
  */
-void swap_ints(int *a, int *b)
-{
-	int temp;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-/**
- * selection_sort - Rearranges integers of an array
- * @array: Array
- * @size: Size of the array.
- */
 void selection_sort(int *array, size_t size)
 {
-	int *min;
-	size_t a, b;
+	size_t index, j, temp, kp;
 
-	if (array == NULL || size < 2)
-		return;
-
-	for (a = 0; a < size - 1; a++)
+	for (index = 0; index < size - 1; index++)
 	{
-		min = array + a;
-		for (b = a + 1; b < size; b++)
-			min = (array[b] < *min) ? (array + b) : min;
+		kp = index;
+		for (j = index + 1; j < size; j++)
+			if (array[j] < array[kp])
+				kp = j;
 
-		if ((array + a) != min)
+		if (kp != index)
 		{
-			swap_ints(array + a, min);
+			temp = array[index];
+			array[index] = array[kp];
+			array[kp] = temp;
+
 			print_array(array, size);
 		}
 	}
